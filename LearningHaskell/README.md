@@ -4,9 +4,9 @@
 ```bash 
 Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; try { Invoke-Command -ScriptBlock ([ScriptBlock]::Create((Invoke-WebRequest https://www.haskell.org/ghcup/sh/bootstrap-haskell.ps1 -UseBasicParsing))) -ArgumentList $true } catch { Write-Error $_ }
 ```
-2. Puedes provar tenerlo instalado poniendo el comando **ghc**
+2. Puedes provar tenerlo instalado poniendo el comando **ghc**.
    
-3. crear tu archivo .hs:
+3. crear tu archivo .hs.
    
 4.  En la misma carpeta poner el siguente comando en la terminal:
 ```bash 
