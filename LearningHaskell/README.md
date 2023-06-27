@@ -14,7 +14,7 @@ ghc -o nombreEjecutable nombreDelArchivo.hs
 ```
 5. Podras correrlo poniendo el nombre del ejecutable:
 ```bash 
-.\ejecutable.exe
+.\nombreEjecutable.exe
 ```
 ---
 Material complementario:
