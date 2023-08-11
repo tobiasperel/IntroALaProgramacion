@@ -1,4 +1,4 @@
-erastotenes :  Int −> [ Int ]
+erastotenes ::  Int −> [ Int ]
 erastotenes n = erastotenes aux [ x | x <− [ 2.. n ] ] 0
 erastotenes aux : [ Int ] −> Int −> [ Int ]
 erastotenes aux lista n
