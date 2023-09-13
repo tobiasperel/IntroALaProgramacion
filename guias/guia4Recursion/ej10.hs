@@ -7,10 +7,18 @@ f1 n
 f2 :: Integer -> Integer -> Integer
 f2 n q 
     |n== 0 = 1
-    |n == 1 = q ^ n + 1
+    |n == 1 = q ^ n 
     |otherwise =  q ^ n + f2(n-1) q
 
 f3 :: Integer -> Integer -> Integer
 f3 n q 
-    |2*n == 2 = q ^ (4) + q ^ (3)+q ^ (2) + q ^ (1)
-    |otherwise =  q ^ (2*n)  + q^(2*n-1) + f3(n-1) q
+    |n== 0 = 1
+    |n == 1 = q + q ^2
+    |otherwise =  q ^ (2*n) + q ^ (2*n -1 ) + f3(n-1) q 
+
+f4 :: Integer -> Integer -> Integer
+f4 n q 
+    |n <= 0 = 0 
+    |n == 1 = q + q^2
+    |otherwise = q ^ (2*n) + q ^ (2*n -1 ) + f4(n-1) q - q^(n-1)  
+
