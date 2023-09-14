@@ -24,6 +24,8 @@ reverso (x:xs) = reverso xs ++ [x] -- [1,2,3] = [2,3] ++ [1] = [3] ++ [2] ++ [1]
 pertenece :: Eq t => t -> [t] -> Bool -- usando pattern matching
 pertenece _ [] = False
 pertenece a (x:xs) = a == x || pertenece a xs -- si el elemento es igual al primero o esta en el resto de la lista
+
+
 --2.2
 todosIguales :: (Eq t) => [t] -> Bool
 todosIguales (x:xs)
@@ -34,6 +36,19 @@ todosIguales (x:xs)
 --2.3
 todosDistintos :: (Eq t) => [t] -> Bool
 todosDistintos (x:xs)
-    | tail xs == [] = True
-    |x == head xs = False
+    |longitud xs == 0 = True
+    |pertenece x xs = False -- se fija si el elemento x esta en algun lugar de toda la lista
     |otherwise = todosDistintos xs
+
+--2.4
+hayRepetidos :: (Eq t) => [t] -> Bool
+hayRepetidos(x:xs)
+    |longitud xs == 0 = False
+    |pertenece x xs = True
+    |otherwise = hayRepetidos xs
+
+--2.5 
+
+-- quitar :: (Eq t) => t -> [t] -> Bool
+-- quitar a (x:xs)
+--     | 
