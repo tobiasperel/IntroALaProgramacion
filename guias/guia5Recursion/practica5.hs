@@ -63,3 +63,11 @@ quitarTodos a (x:xs)
     |longitud([x]++(xs) )== 1 && x==a = []
     |a == x =  (quitarTodos a xs)
     |otherwise = [x] ++ (quitarTodos a xs)
+
+--2.9
+
+capicua :: (Eq t) => [t] -> Bool
+capicua [] = True
+capicua (x:xs)
+    |reverso ( x:xs) == (x:xs) =True 
+    |otherwise = False
