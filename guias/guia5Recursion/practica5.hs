@@ -48,7 +48,18 @@ hayRepetidos(x:xs)
     |otherwise = hayRepetidos xs
 
 --2.5 
-
--- quitar :: (Eq t) => t -> [t] -> Bool
--- quitar a (x:xs)
---     | 
+quitar :: (Eq t) => t -> [t] -> [t]
+quitar a [] = []
+quitar a  (x:xs)
+    |longitud([x]++(xs) ) == 1 && x/=a = [x]
+    |longitud([x]++(xs) )== 1 && x==a = []
+    |a == x = xs 
+    |otherwise = [x] ++ (quitar a xs) 
+--2.6
+quitarTodos :: (Eq t ) => t -> [t] -> [t]
+quitarTodos a [] = []
+quitarTodos a (x:xs)
+    |longitud([x]++(xs) ) == 1 && x/=a = [x]
+    |longitud([x]++(xs) )== 1 && x==a = []
+    |a == x =  (quitarTodos a xs)
+    |otherwise = [x] ++ (quitarTodos a xs)
