@@ -71,3 +71,17 @@ capicua [] = True
 capicua (x:xs)
     |reverso ( x:xs) == (x:xs) =True 
     |otherwise = False
+--3
+
+
+sumatoria :: [Integer] -> Integer
+sumatoria [] = 0
+sumatoria [x] = x
+sumatoria (x:xs)
+    |otherwise = x + sumatoria xs
+
+productoria :: [Integer] -> Integer
+productoria [] = 1
+productoria [x] = x
+productoria (x:xs)
+    |otherwise = x * productoria xs
