@@ -1,4 +1,7 @@
 import Distribution.Simple.Setup (falseArg)
+import Data.Bool (otherwise)
+import Distribution.Simple.Command (OptDescr(BoolOpt))
+import Data.Bits (Bits(xor))
 --ej1.1
 longitud :: [t] -> Integer -- [1, 2, 3] 
 longitud [] = 0
@@ -64,6 +67,31 @@ quitarTodos a (x:xs)
     |a == x =  (quitarTodos a xs)
     |otherwise = [x] ++ (quitarTodos a xs)
 
+--2.7
+eliminarRepetidos :: (Eq t) => [t] -> [t]
+eliminarRepetidos [] = []
+eliminarRepetidos [x] = [x]
+
+eliminarRepetidos[x,y]
+    | x==y = [x]
+    | otherwise = [x,y]
+
+eliminarRepetidos (x:xs)
+    | otherwise = [x] ++ eliminarRepetidos (quitarTodos x xs) 
+
+--2.8 
+
+-- mismoElementos :: (Eq t) => [t] -> [t] -> Bool
+-- mismoElementos [] [] = True
+-- mismoElementos [] (x:xs) = False
+-- mismoElementos (x:xs) [] = False
+-- mismoElementos (x:xs) (y:ys)
+--     |longitud (x:xs) /= longitud (y:ys) = False
+--     |pertenece x (y:ys) == False = False
+--     |otherwise = mismoElementos xs (eliminarRepetidos(y:ys))
+
+
+
 --2.9
 
 capicua :: (Eq t) => [t] -> Bool
@@ -71,8 +99,8 @@ capicua [] = True
 capicua (x:xs)
     |reverso ( x:xs) == (x:xs) =True 
     |otherwise = False
---3
 
+--3.1
 
 sumatoria :: [Integer] -> Integer
 sumatoria [] = 0
@@ -80,58 +108,89 @@ sumatoria [x] = x
 sumatoria (x:xs)
     |otherwise = x + sumatoria xs
 
+--3.2
 productoria :: [Integer] -> Integer
 productoria [] = 1
 productoria [x] = x
 productoria (x:xs)
     |otherwise = x * productoria xs
 
+--3.3
+
+maximo :: [Integer] -> Integer
+maximo [] = 0
+maximo [x] = x
+maximo (x:xs) = maximoAux x xs 
+
+maximoAux :: Integer -> [Integer] -> Integer
+maximoAux a [] = a
+maximoAux a (x:xs)
+    |a >= x = maximoAux a xs
+    |a < x = maximoAux x xs
+
+--3.4
+
+sumarN :: Integer -> [Integer] -> [Integer]
+sumarN n [] = []
+sumarN n [x] = [n+x]
+sumarN n (x:xs) 
+    |otherwise = [x+n] ++ sumarN n (xs)
+
+--3.5
+sumarElPrimero :: [Integer] -> [Integer]
+sumarElPrimero [] = []
+sumarElPrimero [x] = [x+x]
+sumarElPrimero (x : xs)
+    |otherwise =  [x+x] ++  sumarN x (xs)
+
+--3.6
+
+sumarElUltimo ::[Integer] -> [Integer]
+sumarElUltimo [] = []
+sumarElUltimo [x] = [x+x]
+sumarElUltimo (a)   
+    | otherwise = sumarN (ultimo a) a
+
+--3.7
+
+pares :: [Integer] -> [Integer]
+pares [] = []
+pares x
+    | longitud (x) == 1 && mod (head x) 2 == 0 = x
+    | longitud (x) == 1 && mod (head x) 2 /= 0 = []
+
+pares (x:xs)
+    | mod x 2 == 0 = [x] ++ pares (xs)
+    | mod x 2 /= 0 = pares (xs)
+
+--3.8
+multiplosDeN :: Integer -> [Integer] -> [Integer]
+multiplosDeN n [] = []
+multiplosDeN n x
+    | longitud (x) == 1 && mod (head x) n == 0 = x
+    | longitud (x) == 1 && mod (head x) n /= 0 = []
+
+multiplosDeN n  (x:xs)
+    | mod x n == 0 = [x] ++ multiplosDeN n (xs)
+    | mod x n /= 0 = multiplosDeN n (xs)
 
 
+minimo :: [Integer] -> Integer
+minimo [] = 0
+minimo [x] = x
+minimo (x:xs) = minimoAux x xs 
+
+minimoAux :: Integer -> [Integer] -> Integer
+minimoAux a [] = a
+minimoAux a (x:xs)
+    |a <= x = minimoAux a xs
+    |a > x = minimoAux x xs
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-compararTublas :: (String,String) -> (String,String) -> Bool
-compararTublas (a,b) (c,d)
-    | a == b || c == d =False
-    |(a,b) == (c,d) = False
-    |otherwise = True
-
-compararNormal :: (String,String) -> Bool
-compararNormal (a,b) 
-    | a == b = False
-    | otherwise = True
-
-relacionesValidas :: [(String,String)]-> Bool
-relacionesValidas [] = True   
-relacionesValidas x 
-    |longitud x == 1 && ((compararNormal (head x)) == False) = False
-    |longitud x == 1 && ((compararNormal (head x)) == True) = True
-
-relacionesValidas (x:xs) 
-    |relacionesValidas2 xs == False = False
-    | otherwise = relacionesValidas xs
-
-relacionesValidas2 :: [(String,String)]-> Bool
-relacionesValidas2 [] = True  
-relacionesValidas2 x 
-    |longitud x == 1 && ((compararNormal (head x)) == False) = False
-    |longitud x == 1 && ((compararNormal (head x)) == True) = True
-
-relacionesValidas2 (x:xs) 
-    |(compararTublas x (head xs) ) == False = False
-    |otherwise = relacionesValidas2 ([x] ++ (tail xs))
+--3.9
+ordenar :: [Integer] -> [Integer]
+ordenar [] = []
+ordenar [x] = ordenar [x]
+ordenar (x:xs)
+    |otherwise = [minimo (x:xs)] ++ ordenar (quitar (  (minimo (x:xs)) (x:xs) ))
 
