@@ -192,5 +192,42 @@ ordenar :: [Integer] -> [Integer]
 ordenar [] = []
 ordenar [x] = ordenar [x]
 ordenar (x:xs)
-    |otherwise = [minimo (x:xs)] ++ ordenar (quitar (  (minimo (x:xs)) (x:xs) ))
+    | x == minimo (x:xs) = [x] ++ ordenar xs
+    | otherwise = ordenar (xs ++ [x])
+
+--4.1
+
+sacarBlancosRepetidos :: [Char] -> [Char]
+sacarBlancosRepetidos [] = []
+sacarBlancosRepetidos (x:xs)
+    | longitud (x:xs) == 1 && x == ' ' = []
+    | longitud (x:xs) == 1 && x /= ' ' = [x]  
+    | x == ' ' = sacarBlancosRepetidos(xs)
+    |otherwise = [x] ++ sacarBlancosRepetidos(xs)  
+
+--4.2 
+
+contarPalabras :: [Char] -> Integer
+contarPalabras [] = 0
+contarPalabras (x:xs)
+    |otherwise = 1+ contarPalabras(xs)
+
+--4.3 que dada una lista de chars arme una lista de string donde cada elemento de la lista sea una palabra de la lista original
+
+palabra :: [Char] -> [Char]
+palabra [] = []
+palabra (x:xs)
+    | longitud (x:xs) == 1 && x == ' ' = []
+    | longitud (x:xs) == 1 && x /= ' ' = [x]  
+    | x == ' ' = [] 
+    |otherwise = [x] ++ palabra(xs)
+
+--5.1
+
+-- sumaAcumulada :: (Num t) => [t] -> [t]
+-- sumaAcumulada [] = []
+-- sumaAcumulada (x:xs)
+--     | longitud (x:xs) == 1 = [x]
+--     | otherwise = [x] +
+
 
