@@ -78,7 +78,26 @@ buscarPersona nombre (x:xs)
     |nombre == x = xs
     |nombre /= x = [x] ++ buscarPersona nombre xs
 
+-- --4
+personaConMasAmigos :: [(String,String)] -> String
+personaConMasAmigos n = personaConMasAmigosAux 0 "" (desarmarTuplas(n))
 
+
+personaConMasAmigosAux :: Integer -> String -> [String] -> String
+personaConMasAmigosAux n palabraFavorita [] = palabraFavorita
+personaConMasAmigosAux n palabraFavorita (a: resto)
+    |longitud (a: resto) == 1 && n/= 0 = palabraFavorita
+    |longitud (a: resto) == 1 && n== 0 = a
+    | (n >= (palabraMasRepetida a (resto) ) )  = personaConMasAmigosAux n palabraFavorita resto
+    | (n < (palabraMasRepetida a (resto) ) )  = personaConMasAmigosAux (palabraMasRepetida a (resto) ) a resto
+
+
+palabraMasRepetida :: String -> [String] -> Integer
+palabraMasRepetida nombre [] = 0
+
+palabraMasRepetida nombre (x:xs)
+    | nombre == x = 1 + palabraMasRepetida nombre xs
+    |nombre /= x = 0 +     palabraMasRepetida nombre xs
 
 main = runTestTT tests
 
@@ -87,8 +106,9 @@ tests = test [
     " relacionesValidas: una sola incorrecta" ~: (relacionesValidas [relacion1_1]) ~?= False,
     " personas: una sola relacion, 2 personas" ~: (sonIguales (personas [relacion1_2])  [usuario1, usuario2]) ~?= True,
     " personas: dos relaciones, 3 personas" ~: (sonIguales (personas [relacion1_2, relacion1_3]) [usuario1, usuario2, usuario3]) ~?= True,
-     " amigosDe: una sola relacion, 1 solo amigo" ~: (amigosDe usuario1 [relacion1_2] ) ~?= [usuario2]]
-
+    " amigosDe: una sola relacion, 1 solo amigo" ~: (amigosDe usuario1 [relacion1_2] ) ~?= [usuario2],
+    " personaConMasAmigos: 2 relaciones, 1 solo max" ~: (personaConMasAmigos [relacion1_2, relacion1_3]) ~?= usuario1
+]
 -- Ejemplos
 
 usuario1 = "Juan"
@@ -118,3 +138,4 @@ incluido (x:c) l = elem x l && incluido c (quitar x l)
 
 sonIguales :: (Eq t) => [t] -> [t] -> Bool
 sonIguales xs ys = incluido xs ys && incluido ys xs 
+
