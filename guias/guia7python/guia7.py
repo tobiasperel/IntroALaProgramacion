@@ -23,3 +23,10 @@ def dividirAtodos(a: array, x: int) -> array:
         a[i] = a[i] / x
         i += 1
     return a
+
+def sumarTodos(a:array) -> int: 
+    total : float = 0
+    for i in range(len(a)):
+        total = total + a[i] 
+    return total    
+print (sumarTodos(array('f', [1.0, 2.0, 3.0, 4.0, 5.0])))
