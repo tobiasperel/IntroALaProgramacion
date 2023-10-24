@@ -1,7 +1,4 @@
-import Distribution.Simple.Setup (falseArg)
-import Data.Bool (otherwise)
-import Distribution.Simple.Command (OptDescr(BoolOpt))
-import Data.Bits (Bits(xor))
+
 --ej1.1
 longitud :: [t] -> Integer -- [1, 2, 3] 
 longitud [] = 0
@@ -81,15 +78,18 @@ eliminarRepetidos (x:xs)
 
 --2.8 
 
--- mismoElementos :: (Eq t) => [t] -> [t] -> Bool
--- mismoElementos [] [] = True
--- mismoElementos [] (x:xs) = False
--- mismoElementos (x:xs) [] = False
--- mismoElementos (x:xs) (y:ys)
---     |longitud (x:xs) /= longitud (y:ys) = False
---     |pertenece x (y:ys) == False = False
---     |otherwise = mismoElementos xs (eliminarRepetidos(y:ys))
+mismoElementos :: (Eq t) => [t] -> [t] -> Bool
+mismoElementos [] [] = True
+mismoElementos lista1 lista2 
+    |longitud (eliminarRepetidos(lista1) ) /=  longitud (eliminarRepetidos(lista2) ) = False
+    |otherwise = mismoElementosAux (eliminarRepetidos(lista1))  (eliminarRepetidos(lista2) )
 
+mismoElementosAux :: (Eq t)  => [t] -> [t] -> Bool
+mismoElementosAux (x:xs) lista 
+    |longitud(x:xs) == 1 && pertenece x lista = True
+    |longitud(x:xs) == 1 = False
+    | pertenece x lista = mismoElementosAux xs lista 
+    | otherwise = False     
 
 
 --2.9
@@ -221,6 +221,15 @@ palabra (x:xs)
     | longitud (x:xs) == 1 && x /= ' ' = [x]  
     | x == ' ' = [] 
     |otherwise = [x] ++ palabra(xs)
+
+-- 
+-- palabraMasLarga :: [Char] -> [Char]
+
+palabraMasLargaAux :: [Char] -> [([Char],Integer)]
+palabraMasLargaAux [] = [("",0)]
+
+palabraMasLargaAux (x: xs) 
+    |otherwise = 
 
 --5.1
 
