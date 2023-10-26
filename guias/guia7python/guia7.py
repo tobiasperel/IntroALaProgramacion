@@ -85,3 +85,15 @@ def filasOrdenadas(a:array) -> bool:
     return True
 print(filasOrdenadas([[1,2,3],[4,5,6],[1,1,9]]))
 
+def ordenados(a:array) -> bool:
+    for i in range(len(a)-1):
+        if a[i] > a[i+1]:
+            return False
+    return True
+
+def filasOrdenadas2(a:array) -> bool:
+    for i in range(len(a)):
+        if ordenados(a[i]) == False:
+            return False
+    return True
+print(filasOrdenadas2([[1,2,3],[4,5,6],[1,1,9]]))
