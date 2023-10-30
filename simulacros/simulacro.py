@@ -7,14 +7,21 @@ def ultima_aparicion(s:list,e:int)-> int:
     return ultimaVez
 #ultima_aparicion([1,3,4,5,6,3,4,5,2],3) 
 
+def sacarRepetidos(s:list)-> list:
+    for i in range(len(s)):
+        for j in range(i+1,len(s)):
+            if s[i] == s[j]:
+                s.pop(j)
+                break
+    return s
+
 def elementos_exclusivos(s:list,t:list) -> list:
+    s = sacarRepetidos(s)
+    t = sacarRepetidos(t)
+    print(s,t)
     listaAdevolver:list = s
     for elemento in t:
-        #print(t)
-        #print(elemento)
         if elemento in listaAdevolver:
-            #print(elemento)
-            #print(listaAdevolver)
             for j in range(len(listaAdevolver)):
                 if listaAdevolver[j]== elemento:
                     listaAdevolver.pop(j)
@@ -22,7 +29,7 @@ def elementos_exclusivos(s:list,t:list) -> list:
         else:
             listaAdevolver.append(elemento)
     return listaAdevolver
-#elementos_exclusivos([1,2,3,8,54,49],[9,2,4])
+print(elementos_exclusivos([3,3,6,45,45,6],[3,6,2,46,45,6,7,8,9,10]))
 
 def contar_traducciones_iguales(ing:dict, ale: dict) -> int:
     cantidad:int = 0
